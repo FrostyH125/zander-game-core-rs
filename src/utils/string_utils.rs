@@ -84,7 +84,7 @@ impl StringSinWave {
 
     fn draw(&self, d: &mut RaylibDrawHandle, font: &Font) {
         // necessary buffer for a low allocation char -> &str conversion
-        let mut ch_buffer = [0u8, 4];
+        let mut ch_buffer = [0u8; 4];
 
         let mut progress = self.timer.progress();
 

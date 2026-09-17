@@ -12,6 +12,7 @@ pub struct SpriteAnimationInstance {
     pub current_frame_time: f32,
     pub current_frame_index: u8,
     pub finished_playing: bool,
+    pub is_playing: bool
 }
 
 impl SpriteAnimationInstance {
@@ -21,6 +22,7 @@ impl SpriteAnimationInstance {
             current_frame_time: 0.0,
             current_frame_index: 0,
             finished_playing: false,
+            is_playing: false
         }
     }
 
@@ -33,10 +35,13 @@ impl SpriteAnimationInstance {
 
         if frame_count == 0 {
             self.finished_playing = true;
+            self.is_playing = false;
             return;
         }
 
         self.current_frame_time += dt;
+
+        self.is_playing = true;
 
         while self.current_frame_time >= self.sprite_animation.frame_duration {
             self.current_frame_time -= self.sprite_animation.frame_duration;
@@ -54,6 +59,7 @@ impl SpriteAnimationInstance {
             } else {
                 self.current_frame_index -= 1;
                 self.finished_playing = true;
+                self.is_playing = false;
                 break;
             }
         }
@@ -103,6 +109,7 @@ impl SpriteAnimationInstance {
         self.current_frame_index = 0;
         self.current_frame_time = 0.0;
         self.finished_playing = false;
+        self.is_playing = false;
     }
 
     pub fn current_sprite(&self) -> Sprite {
