@@ -1,5 +1,4 @@
-use crate::{raylib::sprite::Sprite, raylib::sprite_animation::SpriteAnimationInstance};
-use raylib::prelude::*;
+use crate::raylib::sprite::Sprite;
 
 pub struct SpriteAnimationData {
     pub frames: &'static [Sprite],

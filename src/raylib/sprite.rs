@@ -72,6 +72,6 @@ impl Sprite {
             (spr_height * flp_v_mult) as i32,
         );
         let dest_rect = Rectangle::new(pos.x, pos.y, spr_width, spr_height);
-        d.draw_texture_pro(texture, new_sprite.src_rect, dest_rect, Vector2::zero(), 0.0, Color::WHITE);
+        d.draw_texture_pro(texture, new_sprite.src_rect, dest_rect, Vector2::zero(), 0.0, tint);
     }
 }
