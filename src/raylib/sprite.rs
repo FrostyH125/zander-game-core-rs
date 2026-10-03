@@ -36,7 +36,7 @@ impl Sprite {
         origin: Vector2,
         rotation: f32,
         texture: &Texture2D,
-        color: Color
+        color: Color,
     ) {
         d.draw_texture_pro(texture, self.src_rect, dest_rect, origin, rotation, color);
     }
@@ -52,7 +52,15 @@ impl Sprite {
         );
     }
 
-    pub fn draw_flp(&self, d: &mut RaylibDrawHandle, pos: Vector2, texture: &Texture2D, flp_h: bool, flp_v: bool, tint: Color) {
+    pub fn draw_flp(
+        &self,
+        d: &mut RaylibDrawHandle,
+        pos: Vector2,
+        texture: &Texture2D,
+        flp_h: bool,
+        flp_v: bool,
+        tint: Color,
+    ) {
         let spr_width = self.src_rect.width.ceil();
         let spr_height = self.src_rect.height.ceil();
 
@@ -73,5 +81,23 @@ impl Sprite {
         );
         let dest_rect = Rectangle::new(pos.x, pos.y, spr_width, spr_height);
         d.draw_texture_pro(texture, new_sprite.src_rect, dest_rect, Vector2::zero(), 0.0, tint);
+    }
+
+    pub fn create_sequence_of_sprites(
+        start_x: i32,
+        start_y: i32,
+        width: i32,
+        height: i32,
+        number_of_sprites: i32,
+    ) -> Vec<Sprite> {
+        let mut sprites = Vec::new();
+
+        for i in 0..number_of_sprites {
+            let sprite = Sprite::new(start_x + (i * width), start_y, width, height);
+
+            sprites.push(sprite);
+        }
+
+        return sprites;
     }
 }
