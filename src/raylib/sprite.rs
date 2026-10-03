@@ -4,6 +4,7 @@ pub struct Sprite {
     pub src_rect: Rectangle,
 }
 
+pub const EMPTY: Sprite = Sprite::new(0, 0, 0, 0);
 const INSET_FOR_SPRITE_BLEED_FIX: f32 = 1.0 / 100.0;
 
 impl Sprite {
@@ -83,19 +84,20 @@ impl Sprite {
         d.draw_texture_pro(texture, new_sprite.src_rect, dest_rect, Vector2::zero(), 0.0, tint);
     }
 
-    pub fn create_sequence_of_sprites(
+    pub const fn create_sequence_of_sprites<const N: usize>(
         start_x: i32,
         start_y: i32,
         width: i32,
         height: i32,
-        number_of_sprites: i32,
-    ) -> Vec<Sprite> {
-        let mut sprites = Vec::new();
+    ) -> [Sprite; N] {
 
-        for i in 0..number_of_sprites {
-            let sprite = Sprite::new(start_x + (i * width), start_y, width, height);
+        let mut sprites = [EMPTY; N];
 
-            sprites.push(sprite);
+        let mut i = 0;
+        while i < N {
+            let sprite = Sprite::new(start_x + (i as i32 * width), start_y, width, height);
+            sprites[i] = sprite;
+            i += 1;
         }
 
         return sprites;
